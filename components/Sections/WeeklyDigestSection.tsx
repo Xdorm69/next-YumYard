@@ -41,7 +41,7 @@ const DigestCard = () => {
                 </div>
                 {/* RIGHT  */}
                 <div className="flex flex-col h-full justify-center text-left flex-1 px-10">
-                    <h1 className="text-primary font-semibold text-3xl font-mono">You won't believe from what these brownies are made of!</h1>
+                    <h1 className="text-primary font-semibold text-3xl font-mono">You won&apos;t believe from what these brownies are made of!</h1>
 
                     <Separator className="bg-primary/40 mt-12 w-full h-1"/>
                     <div className="flex items-center justify-between text-2xl font-mono font-semibold mt-4">
