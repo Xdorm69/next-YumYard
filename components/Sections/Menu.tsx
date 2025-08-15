@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import { Separator } from "@radix-ui/react-dropdown-menu";
 import {
@@ -10,8 +12,14 @@ import {
   Croissant,
 } from "lucide-react";
 import Image from "next/image";
-import { ReactNode } from "react";
+import { ReactNode, useRef } from "react";
 import { Card, CardContent, CardTitle } from "../ui/card";
+import { indianFoods } from "../Data/Menu";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 type TopItemType = {
   title: string;
@@ -34,48 +42,151 @@ const topItems: TopItemType[] = [
   { title: "Tips", icon: <Lightbulb className="h-12 w-12 text-primary" /> },
 ];
 
-export const indianFoods: IndianFoodArrayType[] = [
-  {
-    title: "Biryani",
-    description:
-      "A fragrant rice dish cooked with aromatic spices, saffron, and marinated meat or vegetables, popular across India.",
-    img: "https://images.unsplash.com/photo-1708184528306-f75a0a5118ee?q=80&w=1110&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    title: "Masala Dosa",
-    description:
-      "A thin, crispy South Indian crepe made from fermented rice and lentil batter, stuffed with spicy potato filling.",
-    img: "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    title: "Butter Chicken",
-    description:
-      "Tender chicken pieces cooked in a creamy tomato gravy with butter and rich spices, served with naan or rice.",
-    img: "https://images.unsplash.com/photo-1728910107534-e04e261768ae?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    title: "Pani Puri",
-    description:
-      "Crispy hollow puris filled with spicy, tangy water, mashed potatoes, and chickpeas — a popular Indian street snack.",
-    img: "https://images.unsplash.com/photo-1596522869169-95231d2b6864?q=80&w=1237&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    title: "Paneer Tikka",
-    description:
-      "Chunks of cottage cheese marinated in yogurt and spices, then grilled or roasted for a smoky, flavorful bite.",
-    img: "https://images.unsplash.com/photo-1701579231320-cc2f7acad3cd?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-];
-
 export default function MenuSection() {
+  const headingRef = useRef<HTMLDivElement>(null);
+  const bottomHeadingRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: headingRef.current,
+        start: "top 80%",
+        end: "bottom 30%",
+        scrub: true,
+        once: true
+      },
+    });
+
+    const smallText = headingRef.current?.querySelector(".heading-small");
+    const mainText = headingRef.current?.querySelector(".heading-main");
+    const separator = headingRef.current?.querySelector(".heading-separator");
+
+    if (smallText) {
+      gsap.set(smallText, { x: 100, opacity: 0 });
+      tl.to(smallText, { x: 0, opacity: 1, duration: 0.5, ease: "power3.out" });
+    }
+
+    if (mainText) {
+      const chars = mainText.textContent?.split("") || [];
+      mainText.innerHTML = chars
+        .map(
+          (c) => `<span class="char inline-block overflow-hidden">${c}</span>`
+        )
+        .join("");
+
+      tl.to(
+        mainText.querySelectorAll(".char"),
+        {
+          yPercent: 0,
+          opacity: 1,
+          duration: 0.6,
+          stagger: 0.05,
+          ease: "power3.out",
+        },
+        ">-0.1"
+      );
+      gsap.set(mainText.querySelectorAll(".char"), {
+        yPercent: 100,
+        opacity: 0,
+      });
+    }
+
+    if (separator) {
+      gsap.set(separator, { width: 0, transformOrigin: "left center" });
+      tl.to(
+        separator,
+        { width: "70%", duration: 0.4, ease: "power2.out" },
+        ">-0.6"
+      );
+    }
+    tl.fromTo(
+      ".top-items",
+      { opacity: 0, y: 100 },
+      { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: "power2.out" },
+      "<+0.2"
+    );
+
+    // ======================
+    // BOTTOM HEADING ANIMATION
+    // ======================
+    if (bottomHeadingRef.current) {
+      const smallBottom =
+        bottomHeadingRef.current.querySelector(".heading-small");
+      const mainBottom =
+        bottomHeadingRef.current.querySelector(".heading-main");
+      const separatorBottom =
+        bottomHeadingRef.current.querySelector(".heading-separator");
+
+      const tlBottom = gsap.timeline({
+        scrollTrigger: {
+          trigger: bottomHeadingRef.current,
+          start: "top 80%",
+          end: "bottom 30%",
+          scrub: true,
+          once: true,
+        },
+      });
+
+      if (smallBottom) {
+        gsap.set(smallBottom, { x: 100, opacity: 0 });
+        tlBottom.to(smallBottom, {
+          x: 0,
+          opacity: 1,
+          duration: 0.5,
+          ease: "power3.out",
+        });
+      }
+
+      if (mainBottom) {
+        const charsBottom = mainBottom.textContent?.split("") || [];
+        mainBottom.innerHTML = charsBottom
+          .map(
+            (c) => `<span class="char inline-block overflow-hidden">${c}</span>`
+          )
+          .join("");
+
+        gsap.set(mainBottom.querySelectorAll(".char"), {
+          yPercent: 100,
+          opacity: 0,
+        });
+
+        tlBottom.to(
+          mainBottom.querySelectorAll(".char"),
+          {
+            yPercent: 0,
+            opacity: 1,
+            duration: 0.6,
+            stagger: 0.05,
+            ease: "power3.out",
+          },
+          ">-0.1"
+        );
+      }
+
+      if (separatorBottom) {
+        gsap.set(separatorBottom, {
+          width: 0,
+          transformOrigin: "right center",
+        });
+        tlBottom.to(
+          separatorBottom,
+          { width: "70%", duration: 0.4, ease: "power2.out" },
+          
+        );
+      }
+      tlBottom.fromTo(".btm-items", { opacity: 0, y: 100 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: "power2.out" }, "<+0.2");
+    }
+  }, []);
   return (
     <section className="min-h-screen bg-white py-16">
       <div className="cont">
         {/* TOP HEADING  */}
-        <Heading top="in my" main="kitchen" />
+        <div ref={headingRef}>
+          <Heading top="in my" main="kitchen" />
+        </div>
         <div className="mt-4 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 space-x-4">
           {topItems.map((item: TopItemType, id) => (
-            <div key={id} className="mt-8">
+            <div key={id} className="mt-8 top-items">
               <div className="flex flex-col items-center justify-center gap-2 px-2 py-4 rounded-xl shadow bg-secondary">
                 <div>{item.icon}</div>
               </div>
@@ -85,8 +196,10 @@ export default function MenuSection() {
             </div>
           ))}
         </div>
-        {/* BOTTOM HEADING  */}
-        <Heading top="in" main="season" reverse className="mt-8" />
+        {/* BOTTOM HEADING */}
+        <div ref={bottomHeadingRef} className="bottom-heading">
+          <Heading top="in" main="season" reverse className="mt-8" />
+        </div>
         <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
           {indianFoods.map((item: IndianFoodArrayType, id) => (
             <FoodItemCard item={item} key={id} />
@@ -114,12 +227,15 @@ const Heading = ({ top, main, reverse, className }: HeadingProps) => {
           className
         )}
       >
-        <h1 className="uppercase text-7xl font-mono text-primary font-semibold tracking-tight leading-16">
-          <span className="text-primary text-3xl font-normal">{top}</span>
+        <div className="uppercase text-7xl font-mono text-primary font-semibold tracking-tight leading-16">
+          <span className="heading-small inline-block text-primary text-3xl font-normal">
+            {top}
+          </span>
+
           <br />
-          {main}
-        </h1>
-        <Separator className="w-full bg-primary/40 h-1" />
+          <span className="heading-main inline-block">{main}</span>
+        </div>
+        <div className="heading-separator w-full bg-primary/40 h-1" />
       </div>
     </>
   );
@@ -127,7 +243,7 @@ const Heading = ({ top, main, reverse, className }: HeadingProps) => {
 
 export const FoodItemCard = ({ item }: { item: IndianFoodArrayType }) => {
   return (
-    <Card className="mt-8 shadow-xl w-full overflow-hidden">
+    <Card className="mt-8 shadow-xl w-full overflow-hidden btm-items">
       <CardTitle>
         <div className="h-[150px]">
           <Image

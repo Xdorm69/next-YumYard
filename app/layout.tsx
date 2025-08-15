@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import { ThemeProvider } from "@/components/Providers/ThemeProvider";
 import Footer from "@/components/Sections/Footer";
 import { ClerkProvider } from "@clerk/nextjs";
+import SmoothScrollProvider from "@/components/Providers/SmoothScrollProvider";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -42,9 +43,11 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <Navbar />
-            {children}
-            <Footer />
+            <SmoothScrollProvider>
+              <Navbar />
+              {children}
+              <Footer />
+            </SmoothScrollProvider>
           </ThemeProvider>
         </body>
       </html>

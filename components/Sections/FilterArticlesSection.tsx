@@ -1,5 +1,6 @@
 import { Food1Combobox } from "../Food1Combobox";
-import { FoodItemCard, IndianFoodArrayType, indianFoods } from "./Menu";
+import { FoodItemCard, IndianFoodArrayType } from "./Menu";
+import { indianFoods } from "../Data/Menu";
 
 export default function FilterArticlesSection() {
   const count = 8;
