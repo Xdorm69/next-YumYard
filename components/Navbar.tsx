@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { ModeToggle } from "./ui/ModeToggle";
 import Link from "next/link";
 import { cap } from "@/lib/cap";
 import { Menu } from "lucide-react";
@@ -138,7 +137,6 @@ const Navbar = () => {
           <SignedOut>
             <div className="text-background px-2 py-1 bg-primary rounded-md shadow">
               <SignInButton />
-            
             </div>
           </SignedOut>
         </div>

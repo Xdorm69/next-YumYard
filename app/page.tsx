@@ -1,5 +1,4 @@
 import FilterArticlesSection from "@/components/Sections/FilterArticlesSection";
-import Footer from "@/components/Sections/Footer";
 import HomeSection from "@/components/Sections/HomeSection";
 import MenuSection from "@/components/Sections/Menu";
 import WeeklyDigestSection from "@/components/Sections/WeeklyDigestSection";
