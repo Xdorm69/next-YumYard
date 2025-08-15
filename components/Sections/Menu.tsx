@@ -73,7 +73,7 @@ export default function MenuSection() {
       <div className="cont">
         {/* TOP HEADING  */}
         <Heading top="in my" main="kitchen" />
-        <div className="mt-4 grid grid-cols-7 space-x-4">
+        <div className="mt-4 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 space-x-4">
           {topItems.map((item: TopItemType, id) => (
             <div key={id} className="mt-8">
               <div className="flex flex-col items-center justify-center gap-2 px-2 py-4 rounded-xl shadow bg-secondary">
@@ -87,7 +87,7 @@ export default function MenuSection() {
         </div>
         {/* BOTTOM HEADING  */}
         <Heading top="in" main="season" reverse className="mt-8" />
-        <div className="mt-4 grid grid-cols-5 space-x-8">
+        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
           {indianFoods.map((item: IndianFoodArrayType, id) => (
             <FoodItemCard item={item} key={id} />
           ))}
@@ -127,7 +127,7 @@ const Heading = ({ top, main, reverse, className }: HeadingProps) => {
 
 export const FoodItemCard = ({ item }: { item: IndianFoodArrayType }) => {
   return (
-    <Card className="mt-8 shadow-xl">
+    <Card className="mt-8 shadow-xl w-full overflow-hidden">
       <CardTitle>
         <div className="h-[150px]">
           <Image

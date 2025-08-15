@@ -13,13 +13,13 @@ export default function FilterArticlesSection() {
         </div>
 
         {/* FILTERS  */}
-        <div className="flex gap-4 mt-4">
+        <div className="mt-4 grid grid-cols-2 lg:grid-cols-4 gap-4">
           <Food1Combobox />
           <Food1Combobox />
         </div>
 
         {/* RENDERED ITEMS  */}
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {indianFoods
             .concat(indianFoods.slice(0, 3))
             .map((item: IndianFoodArrayType, id) => (

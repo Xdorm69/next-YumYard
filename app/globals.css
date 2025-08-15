@@ -120,7 +120,7 @@
     @apply bg-background text-foreground;
   }
   .cont {
-    @apply max-w-7xl mx-auto;
+    @apply max-w-3xl md:max-w-4xl lg:max-w-5xl xl:max-w-6xl 2xl:max-w-7xl mx-auto px-4;
   }
   .primary_bg {
     @apply bg-[#647403];

@@ -4,16 +4,17 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { ThemeProvider } from "@/components/Providers/ThemeProvider";
 import Footer from "@/components/Sections/Footer";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
-  weight: ["200", "300", "400", "700", "900"], // more contrast
+  weight: ["200", "400", "600", "700"], // load exactly the weights you want
   subsets: ["latin", "latin-ext"],
 });
 
 const roboto = Roboto({
   variable: "--font-roboto",
-  weight: ["200", "300", "400", "700", "900"], // more contrast
+  weight: ["200", "400", "600", "700"],
   subsets: ["latin", "latin-ext"],
 });
 export const metadata: Metadata = {
@@ -28,19 +29,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${montserrat.variable} ${roboto.variable} antialiased`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem
-          disableTransitionOnChange
+    <ClerkProvider>
+      <html lang="en" suppressHydrationWarning>
+        <body
+          className={`${montserrat.variable} ${roboto.variable} antialiased`}
         >
-          <Navbar />
-          {children}
-          <Footer/>
-        </ThemeProvider>
-      </body>
-    </html>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="light"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Navbar />
+            {children}
+            <Footer />
+          </ThemeProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
