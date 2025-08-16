@@ -234,7 +234,7 @@ const Heading = ({ top, main, reverse, className }: HeadingProps) => {
           <br />
           <span className="heading-main inline-block">{main}</span>
         </div>
-        <div className="heading-separator w-full bg-primary/40 h-1" />
+        <div className="heading-separator w-full rounded-full bg-primary/40 h-1" />
       </div>
     </>
   );

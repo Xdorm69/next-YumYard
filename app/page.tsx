@@ -6,7 +6,6 @@ import WeeklyDigestSection from "@/components/Sections/WeeklyDigestSection";
 
 export default function Page() {
 
-
   return (
     <main>
       <HomeSection />

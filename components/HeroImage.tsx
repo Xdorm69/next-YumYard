@@ -1,20 +1,20 @@
-
 "use client";
 import Image from "next/image";
-import { heroImgLink } from "./Sections/HomeSection";
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
-export default function HeroImage() {
+export default function HeroImage({ animate }: { animate: boolean }) {
+
   const imageHolderRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
+    if (!animate) return;
+
     gsap.fromTo(
       imageHolderRef.current,
       {
         x: "100%", // start fully off-screen to the right
-      
       },
       {
         x: "10%", // slide into final position
@@ -23,7 +23,7 @@ export default function HeroImage() {
         ease: "power3.out",
       }
     );
-  }, []);
+  }, [animate]);
 
   return (
     <div
@@ -35,7 +35,7 @@ export default function HeroImage() {
           relative"
       >
         <Image
-          src={heroImgLink}
+          src={"/hero.jpeg"}
           alt="hero"
           fill
           className="object-cover w-full h-full"

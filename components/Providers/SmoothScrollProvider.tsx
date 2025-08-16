@@ -1,7 +1,7 @@
 "use client";
 
 import gsap from "gsap";
-import { ReactLenis } from "lenis/react";
+import { ReactLenis, type LenisRef } from "lenis/react"; // 👈 import LenisRef
 import { useEffect, useRef } from "react";
 
 export default function SmoothScrollProvider({
@@ -9,7 +9,8 @@ export default function SmoothScrollProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const lenisRef = useRef<any>(null);
+  // use the provided type instead of manually shaping it
+  const lenisRef = useRef<LenisRef>(null);
 
   useEffect(() => {
     function update(time: number) {

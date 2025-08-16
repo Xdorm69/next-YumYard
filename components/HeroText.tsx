@@ -5,12 +5,14 @@ import gsap from "gsap";
 import { useRef } from "react";
 import { Button } from "./ui/button";
 
-export default function HeroText() {
+export default function HeroText({ animate }: { animate: boolean }) {
   const container = useRef<HTMLDivElement>(null);
   const topHeading = useRef<HTMLHeadingElement>(null);
   const bottomHeading = useRef<HTMLParagraphElement>(null);
 
   useGSAP(() => {
+    if(!animate) return;
+    
     const tl = gsap.timeline();
 
     if (container.current) {
@@ -48,7 +50,7 @@ export default function HeroText() {
     );
 
     tl.fromTo(".btn", {y: 100}, {y: 0, duration: 0.5, ease: "power1.out", stagger: 0.1}, "-=0.7")
-  });
+  }, [animate]);
 
   const text = "Brownie Magic";
 

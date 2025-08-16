@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { heroImgLink } from "./HomeSection";
 import { Separator } from "@radix-ui/react-dropdown-menu";
 import { Button } from "../ui/button";
 
@@ -38,7 +37,7 @@ const DigestCard = () => {
           {/* LEFT  */}
           <div className="w-1/2 h-full hidden sm:block sm:flex-1 ">
             <Image
-              src={heroImgLink}
+              src={"/hero.jpeg"}
               width={500}
               height={500}
               alt="digest"
