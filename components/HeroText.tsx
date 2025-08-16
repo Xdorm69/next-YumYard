@@ -1,7 +1,6 @@
 "use client";
 
 import { useGSAP } from "@gsap/react";
-import { Separator } from "@radix-ui/react-dropdown-menu";
 import gsap from "gsap";
 import { useRef } from "react";
 import { Button } from "./ui/button";

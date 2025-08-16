@@ -1,7 +1,6 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { Separator } from "@radix-ui/react-dropdown-menu";
 import {
   Coffee,
   Cake,
