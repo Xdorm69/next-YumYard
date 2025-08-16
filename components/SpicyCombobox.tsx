@@ -18,18 +18,19 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { useFilterContext } from "@/components/Contexts/FilterContext";
 
-export function Food1Combobox() {
-  const foods = [
-    { value: "paneer-tikka", label: "Paneer Tikka" },
-    { value: "chilli-paneer", label: "Chilli Paneer" },
-    { value: "veg-manchurian", label: "Veg Manchurian" },
-    { value: "spicy-dal-tadka", label: "Spicy Dal Tadka" },
-    { value: "gobi-manchurian", label: "Gobi Manchurian" },
+type SpiceLevelType = "low" | "mid" | "high" | "";
+
+export function SpicyCombobox() {
+  const spices: { value: SpiceLevelType; label: string }[] = [
+    { value: "low", label: "Low spice" },
+    { value: "mid", label: "Medium spice" },
+    { value: "high", label: "High spice" },
   ];
 
   const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState("");
+  const { spiceLevel, setSpiceLevel } = useFilterContext();
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -40,9 +41,9 @@ export function Food1Combobox() {
           aria-expanded={open}
           className="w-full justify-between shadow-xl text-foreground"
         >
-          {value
-            ? foods.find((food) => food.value === value)?.label
-            : "Select spicy veg..."}
+          {spiceLevel
+            ? spices.find((spice) => spice.value === spiceLevel)?.label
+            : "Select spice level..."}
           <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -52,23 +53,24 @@ export function Food1Combobox() {
           <CommandList>
             <CommandEmpty>No match found.</CommandEmpty>
             <CommandGroup>
-              {foods.map((food) => (
+              {spices.map((spice) => (
                 <CommandItem
-                  key={food.value}
-                  value={food.value}
+                  key={spice.value}
+                  value={spice.value}
                   onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue);
+                    const newValue = currentValue as SpiceLevelType;
+                    setSpiceLevel(newValue === spiceLevel ? "" : newValue);
                     setOpen(false);
                   }}
                   className={cn(
                     "cursor-pointer text-foreground hover:bg-accent hover:text-foreground"
                   )}
                 >
-                  {food.label}
+                  {spice.label}
                   <Check
                     className={cn(
                       "ml-auto",
-                      value === food.value ? "opacity-100" : "opacity-0"
+                      spiceLevel === spice.value ? "opacity-100" : "opacity-0"
                     )}
                   />
                 </CommandItem>

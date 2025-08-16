@@ -1,6 +1,7 @@
-import { Food1Combobox } from "../Food1Combobox";
+import { SpicyCombobox } from "../SpicyCombobox";
 import { FoodItemCard, IndianFoodArrayType } from "./Menu";
 import { indianFoods } from "../Data/Menu";
+import { FoodCategoryCombobox } from "../FoodCategoryCombobox";
 
 export default function FilterArticlesSection() {
   const count = 8;
@@ -15,8 +16,8 @@ export default function FilterArticlesSection() {
 
         {/* FILTERS  */}
         <div className="mt-4 grid grid-cols-2 lg:grid-cols-4 gap-4">
-          <Food1Combobox />
-          <Food1Combobox />
+          <FoodCategoryCombobox />
+          <SpicyCombobox />
         </div>
 
         {/* RENDERED ITEMS  */}
